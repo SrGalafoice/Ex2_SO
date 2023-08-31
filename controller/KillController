@@ -37,7 +37,7 @@ public class KillController {
             leitor.close();
             fluxo.close();
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
     public static void mataPid(int pid){
@@ -46,10 +46,9 @@ public class KillController {
         } else processo.append("kill -9 ");
         processo.append(pid);
         try {
-            //Executa o comando no terminal
             Runtime.getRuntime().exec(processo.toString());
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
     public static void mataNome(String noe){
@@ -58,10 +57,9 @@ public class KillController {
         } else processo.append("pkill -f ");
         processo.append(noe);
         try {
-            //Executa o comando no terminal
             Runtime.getRuntime().exec(processo.toString());
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
         }
