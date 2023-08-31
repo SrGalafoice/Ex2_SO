@@ -1,0 +1,69 @@
+package controller;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
+public class KillController {
+    static StringBuilder processo = new StringBuilder();
+    static String SO = os();
+    public KillController(){
+        super();
+    }
+    private static String os(){
+        String os = System.getProperty("os.name");
+        if (os.contains("Windows")){
+            return "W"; // de Windows
+        }
+        else return "L"; // de Linux
+    }
+    public static void listaProcessos(){
+            if (SO.equals("W")) {
+                processo.append("TASKLIST");
+            } else processo.append("ps -ef");
+        try {
+            Process p = Runtime.getRuntime().exec(processo.toString());
+            InputStream fluxo = p.getInputStream();
+            InputStreamReader leitor = new InputStreamReader(fluxo);
+            BufferedReader buffer = new BufferedReader(leitor);
+
+
+            String linha;
+            while ((linha = buffer.readLine()) != null) {
+                System.out.println(linha);
+            }
+
+            buffer.close();
+            leitor.close();
+            fluxo.close();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    public static void mataPid(int pid){
+        if (SO.equals("W")) {
+            processo.append("TASKKILL /pid ");
+        } else processo.append("kill -9 ");
+        processo.append(pid);
+        try {
+            //Executa o comando no terminal
+            Runtime.getRuntime().exec(processo.toString());
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    public static void mataNome(String noe){
+        if (SO.equals("W")) {
+            processo.append("TASKKILL /pid ");
+        } else processo.append("pkill -f ");
+        processo.append(noe);
+        try {
+            //Executa o comando no terminal
+            Runtime.getRuntime().exec(processo.toString());
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+    }
+        }
+
+
