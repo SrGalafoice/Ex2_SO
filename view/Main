@@ -1,0 +1,39 @@
+package view;
+import controller.KillController;
+
+import java.util.Scanner;
+
+import static controller.RedesController.CONFERIR;
+
+public class Main {
+    // Não cheguei a usar JOptionPane antes :(
+    public static void main(String[] args) {
+        Scanner leia = new Scanner(System.in);
+        int x = 0, pid = 0;
+        String noe;
+        while (x != 9){
+            System.out.println("---------------------------------------------------------------");
+            System.out.println("|\tMENU\t               \t|");
+            System.out.println("| 1 - Mostrar Processos\t\t\t|");
+            System.out.println("| 2 - Matar processo pelo PID >:)\t|");
+            System.out.println("| 3 - Matar processo pelo nome MUAHAHAHA >:)\t|");
+            System.out.println("| 9 - Finaliza \t\t   \t\t              |");
+            System.out.println("----------------------------------------------------------------");
+            System.out.println("Qual opção deseja escolher? ");
+            x = leia.nextInt();
+            switch(x){
+                case 1: KillController.listaProcessos();
+                break;
+                case 2: System.out.println("Digite o PID ");
+                        pid = leia.nextInt();
+                        KillController.mataPid(pid);
+                        break;
+                case 3:
+                    System.out.println("Digite o nome do processo ");
+                    noe = leia.next();
+                    KillController.mataNome(noe);
+                    break;
+            }
+        }
+    }
+}
